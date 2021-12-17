@@ -26,5 +26,10 @@ a:hover {
   margin-top: 1.5em;
   height: 75vh;
   background-color: #ADB5BD;
+  padding: 2em;
 }
 
+
+#search-icon:hover {
+  cursor:pointer;
+}
