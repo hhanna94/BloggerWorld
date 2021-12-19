@@ -18,6 +18,9 @@ a {
 a:hover {
   color: #6C757D;
 }
+.small-text {
+  font-size: 8pt;
+}
 
 
 
@@ -26,7 +29,14 @@ a:hover {
   margin-top: 1.5em;
   height: 75vh;
   background-color: #ADB5BD;
-  padding: 2em;
+  padding: 2em 8em;
+}
+
+.sub-container {
+  border: 2px solid black;
+  padding: 1.5em;
+  background-color: #F8F9FA;
+  max-height: 100vh;
 }
 
 

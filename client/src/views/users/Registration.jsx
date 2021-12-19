@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
-import UserService from '../services/UserService';
+import { useNavigate } from 'react-router-dom';
+import UserService from '../../services/UserService';
 
 const Registration = () => {
     const [userInfo, setUserInfo] = useState({
@@ -9,7 +10,8 @@ const Registration = () => {
         password: "",
         confirmPassword: "",
     })
-    const [errors, setErrors] = useState([])
+    const [errors, setErrors] = useState([]);
+    const navigate = useNavigate();
 
     const handleChange = e => {
         setUserInfo({
@@ -20,21 +22,25 @@ const Registration = () => {
 
     const register = e => {
         e.preventDefault();
+        console.log(userInfo)
         UserService.register(userInfo)
-            .then(res => console.log(res))
-            .catch(err => setErrors(err.response.data.messages))
+            .then(res => {
+                navigate("/login")
+                console.log(res)
+            })
+            .catch(err => console.log(err.response.data.messages))
     }
 
     return (
-        <div className='container w-25 border border-dark border-2 p-4 bg-light d-flex flex-column justify-content-between mh-100 '>
+        <div className='container w-25 sub-container d-flex flex-column justify-content-between '>
             <h3 className='text-center fw-bold'>Registration</h3>
-            {errors.length>0 ? <div className="overflow-auto mb-3">
+            <div className="overflow-auto mb-3">
             {errors.map( (error, i) => {
                 return (
                     <p className="my-1 text-danger" key={i}>*{error}</p>
                 )
             })}
-            </div> : ""}
+            </div>
                 
             <form onSubmit={register} className='container mt-2'>
                 <div className="d-flex align-items-center mb-3">

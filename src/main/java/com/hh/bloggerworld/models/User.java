@@ -1,12 +1,9 @@
 package com.hh.bloggerworld.models;
 
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
-import javax.persistence.Access;
-import javax.persistence.AccessType;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -25,8 +23,6 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -84,6 +80,9 @@ public class User{
     @JsonIgnore
     private List<Role> roles;
     
+//    @OneToMany(mappedBy="creator", fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+//    private List<Blog> blogs;
+    
     // ================================
     // CONSTRUCTOR
     // ================================
@@ -123,6 +122,9 @@ public class User{
 	public List<Role> getRoles() {
         return roles;
     }
+//	public List<Blog> getBlogs() {
+//		return blogs;
+//	}
 	
 	public void setId(Long id) {
 		this.id = id;
@@ -151,6 +153,9 @@ public class User{
 	public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
+//	public void setBlogs(List<Blog> blogs) {
+//		this.blogs = blogs;
+//	}
 
 	
 }

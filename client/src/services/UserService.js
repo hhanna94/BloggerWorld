@@ -5,16 +5,14 @@ const API_URL = "http://localhost:8080/api/";
 class UserService {
     login(user) {
         return axios.post(API_URL+"login", user)
-            // .then(res => {
-            //     if (res.data.accessToken) {
-            //         localStorage.setItem("user", JSON.stringify(res.data))
-            //     }
-            //     return res.data;
-            // })
     }
 
     register(user) {
         return axios.post(API_URL+"register", user)
+    }
+
+    getLoggedInUser() {
+        return axios.get(API_URL+"user/me")
     }
 }
 

@@ -1,9 +1,10 @@
 import axios from 'axios';
 import React, {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-import UserService from '../services/UserService';
+import UserService from '../../services/UserService';
 
-const Login = () => {
+const Login = props => {
+    const {toggleUpdate, setToggleUpdate} = props
     const [loginInfo, setLoginInfo] = useState({username: "", password: ""});
     const [errors, setErrors] = useState([]);
     const navigate = useNavigate();
@@ -17,13 +18,16 @@ const Login = () => {
 
     const login = e => {
         e.preventDefault();
-        console.log(loginInfo)
         UserService.login(loginInfo)
-            .then(res => console.log(res))
-            .catch(err => console.log(err.response.data.messages))
+            .then(res => localStorage.setItem("auth", res.data.body.accessToken))
+            // .then(() => setToggleUpdate(!toggleUpdate))
+            .then(() => navigate("/"))
+            .catch(err => setErrors(err.response.data.messages))
     }
+
+
     return (
-        <div className='container w-25 border border-dark border-2 p-4 bg-light d-flex flex-column justify-content-between'>
+        <div className='container w-25 sub-container d-flex flex-column justify-content-between'>
             <h3 className='text-center fw-bold'>Login</h3>
             {errors.map( (error, i) => {
                 return (

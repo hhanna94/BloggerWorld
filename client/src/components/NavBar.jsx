@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import SearchIcon from '../static/images/search.svg';
 
 const NavBar = props => {
     const {categories} = props;
+    const [toggleReload, setToggleReload] = useState(false)
 
     const logout = () => {
         localStorage.clear();
+        setToggleReload(true);
     }
 
     return (
@@ -23,9 +26,12 @@ const NavBar = props => {
                     <img src={SearchIcon} id="search-icon" alt="search icon" className="ms-1"/>
                 </div>
                 <div>
-                    <a href="/account">My Account</a>
-                    <button onClick={logout}>Logout</button>
-                    <a className="btn btn-dark text-white fw-bold ms-5 py-1" href="/login">Login</a>
+                    <Link to="/myaccount/details">My Account</Link>
+                    {localStorage.getItem("auth") ?  
+                        <button className="btn btn-dark text-white fw-bold ms-5 py-1" onClick={logout}>Logout</button> : 
+                        <Link className="btn btn-dark text-white fw-bold ms-5 py-1" to="/login">Login</Link> 
+                    }
+                    
                 </div>
             </div>
             <hr />
