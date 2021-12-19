@@ -1,5 +1,7 @@
 package com.hh.bloggerworld.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,10 @@ public class BlogService {
 	
 	public Blog saveBlog(Blog blog) {
 		return blogRepo.save(blog);
+	}
+	
+	public List<Blog> findUserBlogs(Long id) {
+		return blogRepo.findByCreator_Id(id);
 	}
 
 }

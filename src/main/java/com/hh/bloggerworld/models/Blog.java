@@ -17,6 +17,8 @@ import javax.validation.constraints.NotEmpty;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Entity
 @Table(name="blogs")
 public class Blog {
@@ -34,6 +36,8 @@ public class Blog {
 	private String category;
 	
 	private String theme;
+	
+	private String description;
 	
 	@Column(updatable=false)
     @DateTimeFormat(pattern="yyyy-MM-dd")
@@ -54,15 +58,16 @@ public class Blog {
     // ================================
     // RELATIONSHIPS
     // ================================
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name="user_id")
-//    private User creator;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="user_id")
+    private User creator;
     
     // ================================
     // CONSTRUCTOR
     // ================================
     public Blog() {}
     
+
     // ================================
     // GETTERS AND SETTERS
     // ================================
@@ -84,9 +89,12 @@ public class Blog {
 	public Date getUpdatedAt() {
 		return updatedAt;
 	}
-//	public User getCreator() {
-//		return creator;
-//	}
+	public User getCreator() {
+		return creator;
+	}
+	public String getDescription() {
+		return description;
+	}
 	
 	public void setId(Long id) {
 		this.id = id;
@@ -106,9 +114,12 @@ public class Blog {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-//	public void setCreator(User creator) {
-//		this.creator = creator;
-//	}
+	public void setCreator(User creator) {
+		this.creator = creator;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
     
     
 }

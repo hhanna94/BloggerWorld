@@ -1,5 +1,6 @@
 package com.hh.bloggerworld.controllers;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -10,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hh.bloggerworld.models.Blog;
 import com.hh.bloggerworld.models.ErrorResponse;
 import com.hh.bloggerworld.services.BlogService;
+import com.hh.bloggerworld.services.UserService;
 
 @CrossOrigin(origins="http://localhost:3000")
 @RequestMapping("/api/blog")
@@ -25,6 +29,9 @@ import com.hh.bloggerworld.services.BlogService;
 public class BlogController {
 	@Autowired
 	private BlogService blogService;
+	
+	@Autowired
+	private UserService userService;
 	
 	@PreAuthorize("hasRole('USER')")
 	@PostMapping("/create")
@@ -35,5 +42,12 @@ public class BlogController {
 	    }
 		blogService.saveBlog(newBlog);
 		return ResponseEntity.ok(newBlog);
+	}
+	
+//	@PreAuthorize("isAuthenticated()")
+	@GetMapping("/user/{id}")
+	public ResponseEntity<Object> getUserBlogs(@PathVariable("id") Long user_id) {
+		List<Blog> userBlogs = blogService.findUserBlogs(user_id);
+		return ResponseEntity.ok(userBlogs);
 	}
 }

@@ -9,8 +9,9 @@ const CreateBlog = props => {
         category: "",
         theme: "default",
         description: "",
-        creator: {creator: loggedInUser.id}
+        creator: loggedInUser
     })
+    const [errors, setErrors] = useState([])
 
     const handleChange = e => {
         setBlogInfo({
@@ -22,8 +23,8 @@ const CreateBlog = props => {
     const createBlog = e => {
         e.preventDefault();
         BlogService.createBlog(blogInfo)
-            .then(res => console.log(res))
-            .catch(err => console.log(err.response.data.messages))
+            .then(res => console.log("Blog successfully created"))
+            .catch(err => setErrors(err.response.data.messages))
     }
 
     return (

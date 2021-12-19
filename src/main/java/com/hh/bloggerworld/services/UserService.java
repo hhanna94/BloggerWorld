@@ -1,5 +1,6 @@
 package com.hh.bloggerworld.services;
 
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -69,6 +70,15 @@ public class UserService {
     // Find a user by their username (email)
     public User findByUsername(String username) {
     	return userRepo.findByUsername(username);
+    }
+    
+    // Find a user by their id
+    public User findById(Long id) {
+    	Optional<User> user = userRepo.findById(id);
+    	if (!user.isPresent()) {
+    		return null;
+    	}
+    	return user.get();
     }
     
 			

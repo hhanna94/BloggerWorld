@@ -20,11 +20,11 @@ const MyAccount = props => {
     }, [])
 
     return (
-        <div className='d-flex gap-5 mx-5'>
+        <div className='d-flex gap-5 mx-5 h-100'>
             <div className='w-25 sub-container '>
-                {loaded && <AccountNav />}
+                {loaded && <AccountNav user_id={loggedInUser.id}/>}
             </div>
-            <div className="w-75 sub-container ms-5">
+            <div className="w-75 sub-container ms-5 h-100">
                 { loaded && <Routes>
                     <Route path="details" element={<AccountDetails loggedInUser={loggedInUser} />}/>
                     <Route path="createBlog" element={<CreateBlog categories={categories} loggedInUser={loggedInUser}/>} />

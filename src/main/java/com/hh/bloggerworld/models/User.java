@@ -80,8 +80,8 @@ public class User{
     @JsonIgnore
     private List<Role> roles;
     
-//    @OneToMany(mappedBy="creator", fetch = FetchType.LAZY, cascade=CascadeType.ALL)
-//    private List<Blog> blogs;
+    @OneToMany(mappedBy="creator", fetch = FetchType.LAZY)
+    private List<Blog> blogs;
     
     // ================================
     // CONSTRUCTOR
