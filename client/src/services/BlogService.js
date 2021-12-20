@@ -10,6 +10,18 @@ class BlogService {
     getUserBlogs(user_id) {
         return axios.get(API_URL+"user/"+user_id)
     }
+
+    getBlog(blog_id) {
+        return axios.get(API_URL+blog_id)
+    }
+
+    editBlog(blog) {
+        return axios.put(API_URL+blog.id, blog)
+    }
+
+    deleteBlog(id) {
+        return axios.delete(API_URL+id)
+    }
 }
 
 export default new BlogService();

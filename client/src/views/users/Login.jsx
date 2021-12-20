@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import UserService from '../../services/UserService';
@@ -20,7 +19,7 @@ const Login = props => {
         e.preventDefault();
         UserService.login(loginInfo)
             .then(res => localStorage.setItem("auth", res.data.body.accessToken))
-            // .then(() => setToggleUpdate(!toggleUpdate))
+            .then(() => setToggleUpdate(!toggleUpdate))
             .then(() => navigate("/"))
             .catch(err => setErrors(err.response.data.messages))
     }

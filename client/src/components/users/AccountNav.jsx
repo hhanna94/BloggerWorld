@@ -13,16 +13,17 @@ const AccountNav = props => {
     // Determine which tab we are on based on the URL, and automatically set the activeTab to be that tab
     const urlPath = window.location.pathname.split("/")
     let url
-    if (urlPath[1] == "myaccount") {
-        url = urlPath[2]
-    } else if (urlPath[1] == "blogs") {
+    if (urlPath[2] == "blogs") {
         url = urlPath[3]
+    } else {
+        url = urlPath[2]
     }
     const [activeTab, setActiveTab] = useState(url)
 
     useEffect( () => {
         BlogService.getUserBlogs(user_id)
         .then(res => {
+            console.log(res.data)
             setBlogTabs(res.data)
         })
         .catch(err => console.log(err))
@@ -46,7 +47,10 @@ const AccountNav = props => {
             <h6 className="mt-3">My Blogs</h6>
             {blogTabs.map( (tab, i) => {
                 return (
-                    <Link className="ms-4" key={i} to={`/blogs/${tab.id}`}>{tab.title}</Link>
+                    <div key={i} className='d-flex justify-content-between align-items-center'>
+                        <Link to={`/blogs/${tab.id}`} className={activeTab === blogTabs[i].id ? "fw-bold ms-4" : "ms-4"}>{tab.title}</Link>
+                        <Link className='btn btn-secondary py-0' to={`/myaccount/blogs/${tab.id}/edit`} onClick={e => {setActiveTab(blogTabs[i].id)}}>edit</Link>
+                    </div>
                 )
             })}
 

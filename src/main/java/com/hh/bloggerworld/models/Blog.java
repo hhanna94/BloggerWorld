@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
@@ -16,8 +17,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
 import org.springframework.format.annotation.DateTimeFormat;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name="blogs")
@@ -37,6 +36,7 @@ public class Blog {
 	
 	private String theme;
 	
+	@Column(columnDefinition="TEXT")
 	private String description;
 	
 	@Column(updatable=false)
