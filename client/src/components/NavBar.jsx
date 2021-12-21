@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import SearchIcon from '../static/images/search.svg';
 
 const NavBar = props => {
-    const {categories} = props;
+    const { categories } = props;
     const [toggleReload, setToggleReload] = useState(false)
 
     const logout = () => {
@@ -22,29 +22,28 @@ const NavBar = props => {
                         <option value="postName">Post Title</option>
                         <option value="postText">Post Text</option>
                     </select>
-                    <input type="text" name="search" id="search" placeholder="search" className="form-control"/>
-                    <img src={SearchIcon} id="search-icon" alt="search icon" className="ms-1"/>
+                    <input type="text" name="search" id="search" placeholder="search" className="form-control" />
+                    <img src={SearchIcon} id="search-icon" alt="search icon" className="ms-1" />
                 </div>
-                <div>
-                    <Link to="/myaccount/details">My Account</Link>
-                    {localStorage.getItem("auth") ?  
-                        <button className="btn btn-dark text-white fw-bold ms-5 py-1" onClick={logout}>Logout</button> : 
-                        <Link className="btn btn-dark text-white fw-bold ms-5 py-1" to="/login">Login</Link> 
-                    }
-                    
-                </div>
+                {localStorage.getItem("auth") ?
+                    <div>
+                        <Link to="/myaccount/details">My Account</Link>
+                        <button className="btn btn-dark text-white fw-bold ms-5 py-1" onClick={logout}>Logout</button>
+                    </div> :
+                    <Link className="btn btn-dark text-white fw-bold ms-5 py-1" to="/login">Login</Link>
+                }
             </div>
             <hr />
             <ul className="d-flex justify-content-center list-unstyled">
-            {categories.map((category, i) => {
-                return (
-                    <li key={i}>
-                        <a className="mx-2" href={`/${category}`}>{category}</a>
+                {categories.map((category, i) => {
+                    return (
+                        <li key={i}>
+                            <a className="mx-2" href={`/${category}`}>{category}</a>
 
-                    </li>
-                    
-                )
-            })}
+                        </li>
+
+                    )
+                })}
 
             </ul>
         </div>

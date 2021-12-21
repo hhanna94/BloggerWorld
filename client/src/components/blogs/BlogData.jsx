@@ -4,7 +4,7 @@ import PostService from '../../services/PostService';
 
 
 const BlogData = props => {
-    const {blog} = props;
+    const {blog, loggedInUser} = props;
     const [blogPosts, setBlogPosts] = useState([])
 
     useEffect( () => {
@@ -17,7 +17,7 @@ const BlogData = props => {
             <h3 className='text-center'>{blog.title}</h3>
             <p className='text-center'><em>by {blog.creator.firstName} {blog.creator.lastName}</em></p>
             <p style={{whiteSpace: "pre-line"}}>{blog.description}</p>
-            <Link to={`posts/new`} className='btn btn-secondary'>Add Post</Link>
+            { loggedInUser.id == blog.creator.id ? <Link to={`posts/new`} className='btn btn-secondary'>Add Post</Link> : ""}
             {blogPosts.map( (post, i) => {
                 return (
                     <div key={i} className="mini-container mt-3 py-2">

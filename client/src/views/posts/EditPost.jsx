@@ -3,7 +3,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import PostForm from '../../components/posts/PostForm';
 import PostService from '../../services/PostService';
 
-const EditPost = () => {
+const EditPost = props => {
+    const {loggedInUser} = props
     const params = useParams();
     const navigate = useNavigate();
     const [postInfo, setPostInfo] = useState({})
@@ -20,13 +21,21 @@ const EditPost = () => {
     }, [])
 
     const editPost = post => {
+        if (loggedInUser.id !== postInfo.parentBlog.creator.id) {
+            navigate("/")
+            return;
+        }
         PostService.editPost(post)
             .then(res => {
-                console.log(res)
+                navigate(`/blogs/${postInfo.parentBlog.id}/posts/${res.data.id}`)
             })
-            .catch(err => console.log(err))
+            .catch(err => setErrors(err.response.data.messages))
     }
     const deletePost = () => {
+        if (loggedInUser.id !== postInfo.parentBlog.creator.id) {
+            navigate("/")
+            return;
+        }
         PostService.deletePost(postInfo.id)
             .then( () => {
                 navigate(`/blogs/${postInfo.parentBlog.id}`)

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import BlogForm from '../../components/blogs/BlogForm';
 import AccountDetails from '../../components/users/AccountDetails';
 import AccountNav from '../../components/users/AccountNav';
@@ -8,11 +8,13 @@ import CreateBlog from '../blogs/CreateBlog';
 import EditBlog from '../blogs/EditBlog';
 
 const MyAccount = props => {
+    const navigate = useNavigate();
     const { categories } = props;
     const [loggedInUser, setLoggedInUser] = useState({})
     const [toggleReload, setToggleReload] = useState(false)
     const [loaded, setLoaded] = useState(false)
 
+    
     useEffect(() => {
         setLoaded(false)
         UserService.getLoggedInUser()
@@ -32,7 +34,7 @@ const MyAccount = props => {
                 {loaded && <Routes>
                     <Route path="details" element={<AccountDetails loggedInUser={loggedInUser} />} />
                     <Route path="createBlog" element={<CreateBlog categories={categories} loggedInUser={loggedInUser} />} />
-                    <Route path="blogs/:id/edit" element={<EditBlog categories={categories} toggleReload={toggleReload} setToggleReload={setToggleReload} />} />
+                    <Route path="blogs/:id/edit" element={<EditBlog categories={categories} loggedInUser={loggedInUser} toggleReload={toggleReload} setToggleReload={setToggleReload} />} />
                 </Routes>}
             </div>
         </div>

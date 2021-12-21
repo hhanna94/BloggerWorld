@@ -4,11 +4,11 @@ import BlogData from '../../components/blogs/BlogData';
 import BlogService from '../../services/BlogService';
 
 const ViewBlog = props => {
-    const {blog} = props
+    const {blog, loggedInUser} = props
 
     return (
         <div>
-            <BlogData blog={blog}/>
+            <BlogData blog={blog} loggedInUser={loggedInUser}/>
         </div>
     );
 };

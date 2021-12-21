@@ -25,6 +25,7 @@ import javax.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name="users")
@@ -82,6 +83,16 @@ public class User{
     
     @OneToMany(mappedBy="creator", fetch = FetchType.LAZY)
     private List<Blog> blogs;
+    
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+    	name = "comments",
+    	joinColumns = @JoinColumn(name = "user_id"),
+    	inverseJoinColumns = @JoinColumn(name = "post_id")
+    )
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private List<Post> posts;
+    
     
     // ================================
     // CONSTRUCTOR
@@ -156,6 +167,6 @@ public class User{
 //	public void setBlogs(List<Blog> blogs) {
 //		this.blogs = blogs;
 //	}
-
+	
 	
 }

@@ -7,7 +7,8 @@ import ViewPost from '../posts/ViewPost';
 
 import ViewBlog from './ViewBlog';
 
-const BlogParent = () => {
+const BlogParent = props => {
+    const {loggedInUser} = props
     let params = useParams();
     const [blog, setBlog] = useState({})
     const [loaded, setLoaded] = useState(false)
@@ -24,10 +25,10 @@ const BlogParent = () => {
         <div className='container sub-container'>
             { loaded && 
             <Routes>
-                <Route exact path="/" element={<ViewBlog blog={blog}/>}/>
-                <Route path="posts/new" element={<CreatePost blog={blog}/>} />
-                <Route path="posts/:id" element={<ViewPost />} />
-                <Route path="posts/:id/edit" element={<EditPost />} />
+                <Route exact path="/" element={<ViewBlog blog={blog} loggedInUser={loggedInUser}/>}/>
+                <Route path="posts/new" element={<CreatePost blog={blog} loggedInUser={loggedInUser}/>} />
+                <Route path="posts/:id" element={<ViewPost loggedInUser={loggedInUser} />} />
+                <Route path="posts/:id/edit" element={<EditPost loggedInUser={loggedInUser} />} />
             </Routes> }
         </div>
     );

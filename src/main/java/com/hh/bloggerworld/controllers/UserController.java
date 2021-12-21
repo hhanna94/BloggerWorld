@@ -24,13 +24,13 @@ import com.hh.bloggerworld.models.UserPrincipal;
 import com.hh.bloggerworld.services.UserService;
 
 @CrossOrigin(origins= "http://localhost:3000")
-@RequestMapping("/api")
+@RequestMapping("/api/user")
 @RestController
 public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	@GetMapping("/user/me")
+	@GetMapping("/me")
 	@PreAuthorize("hasRole('USER')")
 	public ResponseEntity<Object> getLoggedInUser(@CurrentUser UserPrincipal currentUser) {
 		User user = userService.findByUsername(currentUser.getUsername());

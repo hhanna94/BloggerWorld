@@ -1,7 +1,6 @@
 package com.hh.bloggerworld.models;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,8 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
@@ -22,10 +19,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-
 @Entity
-@Table(name="posts")
-public class Post {
+@Table(name="comments")
+public class Comment {
 	// ================================
     // ATTRIBUTES
     // ================================
@@ -33,14 +29,9 @@ public class Post {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotEmpty(message="Must enter a title.")
-	private String title;
-	
-	@NotEmpty(message="Must enter content.")
+	@NotEmpty(message="Must add text to the comment.")
 	@Column(columnDefinition="TEXT")
-	private String content;
-	
-	private String imageURL;
+	private String commentText;
 	
 	@Column(updatable=false)
     @DateTimeFormat(pattern="yyyy-MM-dd")
@@ -61,38 +52,27 @@ public class Post {
     // ================================
     // RELATIONSHIPS
     // ================================
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="blog_id")
-    private Blog parentBlog;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="post_id")
+    private Post post;
     
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-    	name = "comments",
-    	joinColumns = @JoinColumn(name = "post_id"),
-    	inverseJoinColumns = @JoinColumn(name = "user_id")
-    )
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private List<User> users;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="user_id")
+    private User user;
     
     // ================================
     // CONSTRUCTOR
     // ================================
-    public Post() {}
+    public Comment() {}
     
-    // ================================
+	// ================================
     // GETTERS AND SETTERS
     // ================================
 	public Long getId() {
 		return id;
 	}
-	public String getTitle() {
-		return title;
-	}
-	public String getContent() {
-		return content;
-	}
-	public String getImageURL() {
-		return imageURL;
+	public String getCommentText() {
+		return commentText;
 	}
 	public Date getCreatedAt() {
 		return createdAt;
@@ -100,20 +80,17 @@ public class Post {
 	public Date getUpdatedAt() {
 		return updatedAt;
 	}
-	public Blog getParentBlog() {
-		return parentBlog;
+	public Post getPost() {
+		return post;
+	}
+	public User getUser() {
+		return user;
 	}
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public void setTitle(String title) {
-		this.title = title;
-	}
-	public void setContent(String content) {
-		this.content = content;
-	}
-	public void setImageURL(String imageURL) {
-		this.imageURL = imageURL;
+	public void setCommentText(String commentText) {
+		this.commentText = commentText;
 	}
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
@@ -121,16 +98,13 @@ public class Post {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-	public void setParentBlog(Blog blog) {
-		this.parentBlog = blog;
+	public void setPost(Post post) {
+		this.post = post;
 	}
-//	public List<User> getUsers() {
-//		return users;
-//	}
-//	public void setUsers(List<User> users) {
-//		this.users = users;
-//	}
+	public void setUser(User user) {
+		this.user = user;
+	}
+    
+    
 	
-	
-   
 }

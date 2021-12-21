@@ -15,12 +15,13 @@ function App() {
   const [loggedInUser, setLoggedInUser] = useState({})
   const [toggleUpdate, setToggleUpdate] = useState(false)
 
-  // useEffect( () => {
-  //   setToggleUpdate(false)
-  //   UserService.getLoggedInUser()
-  //     .then(res => setLoggedInUser(res.data))
-  //     .catch(err => console.log(err))
-  // }, [])
+  useEffect( () => {
+    UserService.getLoggedInUser()
+      .then(res => {
+        setLoggedInUser(res.data)
+      })
+      .catch(err => console.log(err))
+  }, [toggleUpdate])
 
   return (
     <BrowserRouter>
@@ -30,7 +31,7 @@ function App() {
           <Route path="/login" element={<Login toggleUpdate={toggleUpdate} setToggleUpdate={setToggleUpdate}/> } />
           <Route path="/register" element={<Registration />} />
           <Route path="/myaccount/*" element={<MyAccount categories={categories} loggedInUser={loggedInUser}/>} />
-          <Route path="/blogs/:id/*" element={<BlogParent />} />
+          <Route path="/blogs/:id/*" element={<BlogParent loggedInUser={loggedInUser} />} />
         </Routes>
       </div>
     </BrowserRouter>

@@ -7,11 +7,10 @@ import BlogService from '../../services/BlogService';
 const EditBlog = props => {
     const params  = useParams();
     const navigate = useNavigate();
-    const {categories, toggleReload, setToggleReload} = props
+    const {categories, toggleReload, setToggleReload, loggedInUser} = props
     const [blogInfo, setBlogInfo] = useState({})
     const [errors, setErrors] = useState([])
     const [loaded, setLoaded] = useState(false)
-
 
     useEffect( () => {
         BlogService.getBlog(params.id)
@@ -24,6 +23,10 @@ const EditBlog = props => {
 
 
     const editBlog = blog => {
+        if (loggedInUser.id !== blogInfo.creator.id) {
+            navigate("/")
+            return;
+        }
         BlogService.editBlog(blog)
                 .then(res => {
                     navigate(`/blogs/${res.data.id}`)
@@ -32,6 +35,10 @@ const EditBlog = props => {
     }
 
     const deleteBlog = () => {
+        if (loggedInUser.id !== blogInfo.creator.id) {
+            navigate("/")
+            return;
+        }
         BlogService.deleteBlog(blogInfo.id)
             .then( () => {
                 setToggleReload(!toggleReload)
