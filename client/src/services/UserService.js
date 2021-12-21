@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8080/api/";
+const API_URL = "http://localhost:8080/api/user/";
 
 class UserService {
     login(user) {
@@ -12,7 +12,7 @@ class UserService {
     }
 
     getLoggedInUser() {
-        return axios.get(API_URL+"user/me")
+        return axios.get(API_URL+"me")
     }
 }
 

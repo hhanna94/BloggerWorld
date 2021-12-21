@@ -1,9 +1,7 @@
 package com.hh.bloggerworld.models;
 
 import java.util.Date;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,7 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -21,8 +18,8 @@ import javax.validation.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name="blogs")
-public class Blog {
+@Table(name="posts")
+public class Post {
 	// ================================
     // ATTRIBUTES
     // ================================
@@ -33,13 +30,11 @@ public class Blog {
 	@NotEmpty(message="Must enter a title.")
 	private String title;
 	
-	@NotEmpty(message="Must select a category.")
-	private String category;
-	
-	private String theme;
-	
+	@NotEmpty(message="Must enter content.")
 	@Column(columnDefinition="TEXT")
-	private String description;
+	private String content;
+	
+	private String imageURL;
 	
 	@Column(updatable=false)
     @DateTimeFormat(pattern="yyyy-MM-dd")
@@ -61,16 +56,13 @@ public class Blog {
     // RELATIONSHIPS
     // ================================
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="user_id")
-    private User creator;
-    
-    @OneToMany(mappedBy="parentBlog", fetch = FetchType.LAZY, cascade=CascadeType.ALL)
-    private List<Post> posts;
+    @JoinColumn(name="blog_id")
+    private Blog parentBlog;
     
     // ================================
     // CONSTRUCTOR
     // ================================
-    public Blog() {}
+    private Post() {}
     
     // ================================
     // GETTERS AND SETTERS
@@ -81,14 +73,11 @@ public class Blog {
 	public String getTitle() {
 		return title;
 	}
-	public String getCategory() {
-		return category;
+	public String getContent() {
+		return content;
 	}
-	public String getTheme() {
-		return theme;
-	}
-	public String getDescription() {
-		return description;
+	public String getImageURL() {
+		return imageURL;
 	}
 	public Date getCreatedAt() {
 		return createdAt;
@@ -96,26 +85,20 @@ public class Blog {
 	public Date getUpdatedAt() {
 		return updatedAt;
 	}
-	public User getCreator() {
-		return creator;
+	public Blog getParentBlog() {
+		return parentBlog;
 	}
-//	public List<Post> getPosts() {
-//		return posts;
-//	}
 	public void setId(Long id) {
 		this.id = id;
 	}
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public void setCategory(String category) {
-		this.category = category;
+	public void setContent(String content) {
+		this.content = content;
 	}
-	public void setTheme(String theme) {
-		this.theme = theme;
-	}
-	public void setDescription(String description) {
-		this.description = description;
+	public void setImageURL(String imageURL) {
+		this.imageURL = imageURL;
 	}
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
@@ -123,12 +106,8 @@ public class Blog {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-	public void setCreator(User creator) {
-		this.creator = creator;
+	public void setParentBlog(Blog blog) {
+		this.parentBlog = blog;
 	}
-	public void setPosts(List<Post> posts) {
-		this.posts = posts;
-	}
-
-    
+   
 }

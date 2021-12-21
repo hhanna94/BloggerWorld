@@ -23,7 +23,6 @@ const AccountNav = props => {
     useEffect( () => {
         BlogService.getUserBlogs(user_id)
         .then(res => {
-            console.log(res.data)
             setBlogTabs(res.data)
         })
         .catch(err => console.log(err))

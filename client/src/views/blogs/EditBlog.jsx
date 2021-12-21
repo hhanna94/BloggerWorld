@@ -26,7 +26,6 @@ const EditBlog = props => {
     const editBlog = blog => {
         BlogService.editBlog(blog)
                 .then(res => {
-                    console.log("blog updated")
                     navigate(`/blogs/${res.data.id}`)
                 })
                 .catch(err => setErrors(err.response.data.messages))

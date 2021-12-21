@@ -30,7 +30,7 @@ function App() {
           <Route path="/login" element={<Login toggleUpdate={toggleUpdate} setToggleUpdate={setToggleUpdate}/> } />
           <Route path="/register" element={<Registration />} />
           <Route path="/myaccount/*" element={<MyAccount categories={categories} loggedInUser={loggedInUser}/>} />
-          <Route path="/blogs/*" element={<BlogParent />} />
+          <Route path="/blogs/:id/*" element={<BlogParent />} />
         </Routes>
       </div>
     </BrowserRouter>
