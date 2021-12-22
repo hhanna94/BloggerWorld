@@ -20,7 +20,6 @@ function App() {
   useEffect( () => {
     UserService.getLoggedInUser()
       .then(res => {
-        console.log("running")
         setLoggedInUser(res.data)
       })
       .catch(err => console.log(err))

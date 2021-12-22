@@ -19,8 +19,8 @@ const Login = props => {
         e.preventDefault();
         UserService.login(loginInfo)
             .then(res => localStorage.setItem("auth", res.data.body.accessToken))
-            .then(() => navigate("/"))
             .then(() => setToggleUpdate(!toggleUpdate))
+            .then(() => navigate("/"))
             .catch(err => setErrors(err.response.data.messages))
     }
 

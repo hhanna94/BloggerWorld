@@ -65,12 +65,7 @@ public class Post {
     @JoinColumn(name="blog_id")
     private Blog parentBlog;
     
-//    @ManyToMany(fetch = FetchType.LAZY)
-//    @JoinTable(
-//    	name = "comments",
-//    	joinColumns = @JoinColumn(name = "post_id"),
-//    	inverseJoinColumns = @JoinColumn(name = "user_id")
-//    )
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy="post", cascade=CascadeType.ALL)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private List<Comment> comments;

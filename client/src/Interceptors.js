@@ -4,8 +4,9 @@ export const jwtToken = localStorage.getItem("auth");
 
 axios.interceptors.request.use(
     function (config) {
-        if (jwtToken) {
-            config.headers["authorization"] = "Bearer " + jwtToken;
+        const newToken = localStorage.getItem("auth");
+        if (newToken !== null) {
+            config.headers["authorization"] = "Bearer " + newToken;
         }
         return config;
     },

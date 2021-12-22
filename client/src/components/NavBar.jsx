@@ -5,7 +5,6 @@ import SearchIcon from '../static/images/search.svg';
 const NavBar = props => {
     const navigate = useNavigate();
     const { categories, toggleUpdate, setToggleUpdate } = props;
-    // const [toggleReload, setToggleReload] = useState(false)
 
     const logout = () => {
         localStorage.clear();
@@ -16,7 +15,9 @@ const NavBar = props => {
     return (
         <div>
             <div className="d-flex justify-content-between align-items-center px-5 pt-3">
-                <h1 className="header">BloggerWorld</h1>
+                <Link to="/">
+                    <h1 className="header">BloggerWorld</h1>
+                </Link>
                 <div className="d-flex align-items-center gap-1">
                     <select name="searchBy" id="searchBy" className="form-select w-75">
                         <option value="author">Author Name</option>
