@@ -22,7 +22,7 @@ const BlogParent = props => {
             .catch(err  => console.log(err))
     }, [])
     return (
-        <div className='container sub-container'>
+        <div className='sub-container'>
             { loaded && 
             <Routes>
                 <Route exact path="/" element={<ViewBlog blog={blog} loggedInUser={loggedInUser}/>}/>

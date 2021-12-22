@@ -15,6 +15,14 @@ class BlogService {
         return axios.get(API_URL+blog_id)
     }
 
+    getAllBlogs()  {
+        return axios.get(API_URL+"all")
+    }
+    
+    getBlogsByCategory(category) {
+        return axios.get(API_URL+"category/"+category)
+    }
+
     editBlog(blog) {
         return axios.put(API_URL+blog.id, blog)
     }

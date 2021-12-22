@@ -35,17 +35,6 @@ public class BlogController {
 	private UserService userService;
 	
 	@PreAuthorize("hasRole('USER')")
-	@PostMapping("/create")
-	public ResponseEntity<Object> createBlog(@Valid @RequestBody Blog newBlog, BindingResult result) {
-		if (result.hasErrors()) {
-	        List<String> errors = result.getAllErrors().stream().map(e -> e.getDefaultMessage()).collect(Collectors.toList());
-	        return ResponseEntity.badRequest().body(new ErrorResponse("404", "Validation failure", errors));
-	    }
-		blogService.saveBlog(newBlog);
-		return ResponseEntity.ok(newBlog);
-	}
-	
-	@PreAuthorize("hasRole('USER')")
 	@GetMapping("/user/{id}")
 	public ResponseEntity<Object> getUserBlogs(@PathVariable("id") Long user_id) {
 		List<Blog> userBlogs = blogService.findUserBlogs(user_id);
@@ -56,6 +45,29 @@ public class BlogController {
 	public ResponseEntity<Object> getBlog(@PathVariable("id") Long blog_id) {
 		Blog blog = blogService.findBlog(blog_id);
 		return ResponseEntity.ok(blog);
+	}
+	
+	@GetMapping("/all")
+	public ResponseEntity<Object> getAllBlogs() {
+		List<Blog> blogs = blogService.findAllBlogs();
+		return ResponseEntity.ok(blogs);
+	}
+	
+	@GetMapping("/category/{category}")
+	public ResponseEntity<Object> getBlogsByCategory(@PathVariable("category") String category) {
+		List<Blog> blogs = blogService.findBlogsByCategory(category);
+		return ResponseEntity.ok(blogs);
+	}
+	
+	@PreAuthorize("hasRole('USER')")
+	@PostMapping("/create")
+	public ResponseEntity<Object> createBlog(@Valid @RequestBody Blog newBlog, BindingResult result) {
+		if (result.hasErrors()) {
+	        List<String> errors = result.getAllErrors().stream().map(e -> e.getDefaultMessage()).collect(Collectors.toList());
+	        return ResponseEntity.badRequest().body(new ErrorResponse("404", "Validation failure", errors));
+	    }
+		blogService.saveBlog(newBlog);
+		return ResponseEntity.ok(newBlog);
 	}
 	
 	@PreAuthorize("hasRole('USER')")

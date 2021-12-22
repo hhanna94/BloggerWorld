@@ -19,14 +19,14 @@ const Login = props => {
         e.preventDefault();
         UserService.login(loginInfo)
             .then(res => localStorage.setItem("auth", res.data.body.accessToken))
-            .then(() => setToggleUpdate(!toggleUpdate))
             .then(() => navigate("/"))
+            .then(() => setToggleUpdate(!toggleUpdate))
             .catch(err => setErrors(err.response.data.messages))
     }
 
 
     return (
-        <div className='container w-25 sub-container d-flex flex-column justify-content-between'>
+        <div className='container w-25 sub-container d-flex flex-column justify-content-between h-50'>
             <h3 className='text-center fw-bold'>Login</h3>
             {errors.map( (error, i) => {
                 return (

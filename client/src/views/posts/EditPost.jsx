@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import PostForm from '../../components/posts/PostForm';
 import PostService from '../../services/PostService';
+import CommentService from '../../services/CommentService'
 
 const EditPost = props => {
     const {loggedInUser} = props
@@ -10,12 +11,18 @@ const EditPost = props => {
     const [postInfo, setPostInfo] = useState({})
     const [errors, setErrors] = useState([])
     const [loaded, setLoaded] = useState(false)
+    const [comments, setComments] = useState([])
 
     useEffect( () => {
         PostService.getPost(params.id)
             .then(res => {
                 setPostInfo(res.data)
                 setLoaded(true)
+            })
+            .catch(err => console.log(err))
+        CommentService.getPostComments(params.id)
+            .then(res => {
+                setComments(res.data)
             })
             .catch(err => console.log(err))
     }, [])
@@ -45,7 +52,7 @@ const EditPost = props => {
 
     return (
         <div>
-            {loaded && <PostForm postInfo={postInfo} errors={errors} onSubmitProp={editPost} mode={"edit"}/>}
+            {loaded && <PostForm postInfo={postInfo} errors={errors} onSubmitProp={editPost} mode={"edit"} comments={comments}/>}
             <button onClick={deletePost} className="btn btn-danger float-end">Delete</button>
         </div>
     );

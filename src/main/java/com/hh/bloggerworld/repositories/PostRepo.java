@@ -13,4 +13,6 @@ public interface PostRepo extends CrudRepository<Post, Long>{
 	List<Post> findByParentBlog_Id(Long id);
 	
 	Optional<Post> findById(Long id);
+	
+	List<Post> findAll();
 }

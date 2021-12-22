@@ -33,5 +33,12 @@ public class BlogService {
 	public void deleteBlog(Long id) {
 		blogRepo.deleteById(id);
 	}
-
+	
+	public List<Blog> findAllBlogs() {
+		return blogRepo.findAll();
+	}
+	
+	public List<Blog> findBlogsByCategory(String category) {
+		return blogRepo.findByCategory(category);
+	}
 }

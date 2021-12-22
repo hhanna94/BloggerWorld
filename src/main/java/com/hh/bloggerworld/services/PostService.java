@@ -33,4 +33,8 @@ public class PostService {
 	public void deletePost(Long id) {
 		postRepo.deleteById(id);
 	}
+	
+	public List<Post> findAllPosts() {
+		return postRepo.findAll();
+	}
 }

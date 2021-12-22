@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import SearchIcon from '../static/images/search.svg';
 
 const NavBar = props => {
-    const { categories } = props;
-    const [toggleReload, setToggleReload] = useState(false)
+    const navigate = useNavigate();
+    const { categories, toggleUpdate, setToggleUpdate } = props;
+    // const [toggleReload, setToggleReload] = useState(false)
 
     const logout = () => {
         localStorage.clear();
-        setToggleReload(true);
+        setToggleUpdate(!toggleUpdate);
+        navigate("/")
     }
 
     return (
@@ -38,7 +40,7 @@ const NavBar = props => {
                 {categories.map((category, i) => {
                     return (
                         <li key={i}>
-                            <a className="mx-2" href={`/${category}`}>{category}</a>
+                            <a className="mx-2" href={`/blogs/category/${category}`}>{category}</a>
 
                         </li>
 

@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 
 const PostForm = props => {
-    const {errors, postInfo, onSubmitProp, mode} = props
+    const {errors, postInfo, onSubmitProp, mode, comments} = props
     const [postFormInfo, setPostFormInfo] = useState(postInfo)
 
     const handleChange = e => {
@@ -13,6 +13,8 @@ const PostForm = props => {
 
     const submit = e => {
         e.preventDefault();
+        postFormInfo.comments = comments;
+        // console.log(postFormInfo)
         onSubmitProp(postFormInfo)
     }
 
@@ -32,7 +34,7 @@ const PostForm = props => {
                     </div>
                     <label htmlFor="description" className="fw-bold">Content: </label>
                 </div>
-                <textarea name="content" id="content" className="form-control mt-3" onChange={handleChange} rows="8"  value={postFormInfo.content}></textarea>
+                <textarea name="content" id="content" className="form-control mt-3" onChange={handleChange} rows="11"  value={postFormInfo.content}></textarea>
                 <p className='small-text'>*Press enter to start a new line.</p>
                 <input type="submit" value="Submit Post" className="btn btn-secondary" />
             </form>

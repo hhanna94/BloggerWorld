@@ -84,14 +84,10 @@ public class User{
     @OneToMany(mappedBy="creator", fetch = FetchType.LAZY)
     private List<Blog> blogs;
     
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-    	name = "comments",
-    	joinColumns = @JoinColumn(name = "user_id"),
-    	inverseJoinColumns = @JoinColumn(name = "post_id")
-    )
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy="post")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private List<Post> posts;
+    private List<Comment> comments;
     
     
     // ================================

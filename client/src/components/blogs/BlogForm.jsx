@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 const BlogForm = props => {
     const {categories, errors, blogInfo, onSubmitProp, mode} = props
     const [blogFormInfo, setBlogFormInfo] =  useState(blogInfo)
-    const themes = ["default"]
+    const themes = ["default", "nautical", "woods", "pink"]
 
 
     const handleChange = e => {

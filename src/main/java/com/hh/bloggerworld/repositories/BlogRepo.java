@@ -14,4 +14,8 @@ public interface BlogRepo extends CrudRepository<Blog, Long>{
 	
 	Optional<Blog> findById(Long id);
 	
+	List<Blog> findAll();
+	
+	List<Blog> findByCategory(String category);
+	
 }

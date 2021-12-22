@@ -54,26 +54,30 @@ const ViewPost = props => {
     return (
         <div>
             {loaded && 
-            <div>
-                <h3 className='text-center'>{postData.title}</h3>
-                <div className='d-flex justify-content-between'>
+            <div className={`text-${postData.parentBlog.theme}`}>
+                <h3 className={`text-center header-${postData.parentBlog.theme}`}>{postData.title}</h3>
+                <div className='d-flex justify-content-between mb-0'>
                     <p>Written by: {postData.parentBlog.creator.firstName} {postData.parentBlog.creator.lastName}</p>
                     <div className="d-flex gap-3">
                         <p className="text-danger">xxx likes</p>
-                        {loggedInUser.id? <Link to="edit">edit</Link> : ""}
+                        {loggedInUser.id == postData.parentBlog.creator.id ? <Link to="edit" className={`link-${postData.parentBlog.theme}`}>edit</Link> : ""}
                     </div>
                 </div>
-                <div className="overflow-auto" style={{maxHeight: "50vh"}}>
+                <hr className="mt-0"/>
+                <div>
                     <p style={{whiteSpace: "pre-line"}}>{postData.content}</p>
-                    { loggedInUser.id? <form onSubmit={submit}>
-                    <h5>Add a Comment</h5>
-                    {errors.map((error, i) => {
-                        return (
-                            <p key={i} className='text-danger'>*{error}</p>
-                        )
-                    })}
-                        <textarea name="commentText" id="commentText" className="form-control w-50" style={{height: "75px"}} onChange={handleChange} value={commentData.commentText}></textarea>
-                        <input type="submit" value="add comment" className='btn btn-info mt-2 py-1 px-2'/>
+                    <hr />
+                    <Link to={`/blogs/${postData.parentBlog.id}`} className={`float-end link-${postData.parentBlog.theme}`}>back to blog</Link>
+                    { loggedInUser.id? 
+                    <form onSubmit={submit}>
+                        <h5>Add a Comment</h5>
+                        {errors.map((error, i) => {
+                            return (
+                                <p key={i} className='text-danger'>*{error}</p>
+                            )
+                        })}
+                            <textarea name="commentText" id="commentText" className="form-control w-50" style={{height: "75px"}} onChange={handleChange} value={commentData.commentText}></textarea>
+                            <input type="submit" value="add comment" className={`btn btn-${postData.parentBlog.theme} mt-2 py-1 px-2`}/>
                     </form> : ""}
                     <h4 className="mt-3">Comments</h4>
                     {comments.map( (comment, i) => {
@@ -81,11 +85,11 @@ const ViewPost = props => {
                             <div key={i}>
                                 <p className='mb-0'>On {new Date(comment.createdAt).toLocaleDateString('en-US')} at {new Date(comment.createdAt).toLocaleTimeString('en-US', {hour: '2-digit', minute: '2-digit'})}, {comment.user.firstName} said:</p>
                                 <p className='mt-0 mb-3 ms-4'>{comment.commentText}</p>
+                                <hr />
                             </div>
                         )
                     })}
                 </div>
-                <Link to={`/blogs/${postData.parentBlog.id}`} className='float-end'>back to blog</Link>
             </div>
             }
         </div>

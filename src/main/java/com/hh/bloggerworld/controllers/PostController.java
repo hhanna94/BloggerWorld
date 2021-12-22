@@ -56,6 +56,13 @@ public class PostController {
 		return ResponseEntity.ok(post);
 	}
 	
+	@GetMapping("/all")
+	public ResponseEntity<Object> getAllPosts() {
+		List<Post> posts = postService.findAllPosts();
+		return ResponseEntity.ok(posts);
+	}
+	
+	
 	@PreAuthorize("hasRole('USER')")
 	@PutMapping("/{id}")
 	public ResponseEntity<Object> editPost(@Valid @RequestBody Post post, BindingResult result) {

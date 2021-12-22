@@ -3,6 +3,7 @@ package com.hh.bloggerworld.models;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,9 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -65,14 +65,15 @@ public class Post {
     @JoinColumn(name="blog_id")
     private Blog parentBlog;
     
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-    	name = "comments",
-    	joinColumns = @JoinColumn(name = "post_id"),
-    	inverseJoinColumns = @JoinColumn(name = "user_id")
-    )
+//    @ManyToMany(fetch = FetchType.LAZY)
+//    @JoinTable(
+//    	name = "comments",
+//    	joinColumns = @JoinColumn(name = "post_id"),
+//    	inverseJoinColumns = @JoinColumn(name = "user_id")
+//    )
+    @OneToMany(fetch = FetchType.LAZY, mappedBy="post", cascade=CascadeType.ALL)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private List<User> users;
+    private List<Comment> comments;
     
     // ================================
     // CONSTRUCTOR

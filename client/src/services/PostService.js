@@ -14,6 +14,10 @@ class PostService {
     getPost(post_id) {
         return axios.get(API_URL+post_id)
     }
+    
+    getAllPosts() {
+        return axios.get(API_URL+"all")
+    }
 
     editPost(post) {
         return axios.put(API_URL+post.id, post)
