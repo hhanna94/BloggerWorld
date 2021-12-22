@@ -33,7 +33,6 @@ public class UserController {
 	@GetMapping("/me")
 	@PreAuthorize("hasRole('USER')")
 	public ResponseEntity<Object> getLoggedInUser(@CurrentUser UserPrincipal currentUser) {
-		System.out.println(currentUser);
 		User user = userService.findByUsername(currentUser.getUsername());
 		return ResponseEntity.ok(user);
 	}
