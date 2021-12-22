@@ -25,6 +25,7 @@ const BlogCategory = () => {
     return (
         <div className='sub-container overflow-auto'>
             <h3 className="text-center">{capitalizedCategory} Blogs</h3>
+            {!loaded ? <p>No {capitalizedCategory} blogs yet! Maybe you could be the first?</p> : ""}
             {loaded && 
             <div className="mt-3">
                 <Link to={`/blogs/${randomBlogId}`}>get random</Link>

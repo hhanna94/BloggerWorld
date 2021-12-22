@@ -9,6 +9,11 @@ const Home = () => {
     useEffect( () => {
         PostService.getAllPosts()
             .then(res => {
+                if (res.data.length < 3) {
+                    setRandomPosts(res.data)
+                    setLoaded(true)
+                    return
+                }
                 let randomNums = []
                 let tempPostArr = []
                 while (tempPostArr.length < 3) {
