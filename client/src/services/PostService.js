@@ -19,6 +19,18 @@ class PostService {
         return axios.get(API_URL+"all")
     }
 
+    getPostsByTitle(title) {
+        return axios.get(API_URL+"search/post/"+title)
+    }
+
+    getPostsByAuthor(lastName) {
+        return axios.get(API_URL+"search/author/"+lastName)
+    }
+
+    getPostsByContent(content) {
+        return axios.get(API_URL+"search/content/"+content)
+    }
+
     editPost(post) {
         return axios.put(API_URL+post.id, post)
     }

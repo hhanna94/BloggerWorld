@@ -37,4 +37,16 @@ public class PostService {
 	public List<Post> findAllPosts() {
 		return postRepo.findAll();
 	}
+	
+	public List<Post> findPostsByTitle(String title) {
+		return postRepo.findByTitleContainsIgnoreCase(title);
+	}
+	
+	public List<Post> findPostsByAuthorLastName(String name) {
+		return postRepo.findByParentBlogCreatorLastNameContainsIgnoreCase(name);
+	}
+	
+	public List<Post> findPostsByContent(String content) {
+		return postRepo.findByContentContainsIgnoreCase(content);
+	}
 }

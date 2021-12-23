@@ -15,4 +15,10 @@ public interface PostRepo extends CrudRepository<Post, Long>{
 	Optional<Post> findById(Long id);
 	
 	List<Post> findAll();
+	
+	List<Post> findByTitleContainsIgnoreCase(String title);
+	
+	List<Post> findByParentBlogCreatorLastNameContainsIgnoreCase(String lastName);
+	
+	List<Post> findByContentContainsIgnoreCase(String content);
 }

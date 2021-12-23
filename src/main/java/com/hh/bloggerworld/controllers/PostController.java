@@ -62,6 +62,25 @@ public class PostController {
 		return ResponseEntity.ok(posts);
 	}
 	
+
+	@GetMapping("/search/post/{title}")
+	public ResponseEntity<Object> getPostsByTitle(@PathVariable("title") String title) {
+		List<Post> posts = postService.findPostsByTitle(title);
+		return ResponseEntity.ok(posts);
+	}
+	
+	@GetMapping("/search/author/{lastName}")
+	public ResponseEntity<Object> getPostsByAuthorLastName(@PathVariable("lastName") String lastName) {
+		List<Post> posts = postService.findPostsByAuthorLastName(lastName);
+		return ResponseEntity.ok(posts);
+	}
+	
+	@GetMapping("/search/content/{content}")
+	public ResponseEntity<Object> getPostsByContent(@PathVariable("content") String content) {
+		List<Post> posts = postService.findPostsByContent(content);
+		return ResponseEntity.ok(posts);
+	}
+	
 	
 	@PreAuthorize("hasRole('USER')")
 	@PutMapping("/{id}")

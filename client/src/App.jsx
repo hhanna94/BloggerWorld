@@ -10,6 +10,7 @@ import MyAccount from './views/users/MyAccount';
 import BlogParent from './views/blogs/BlogParent';
 import Home from './views/posts/Home';
 import BlogCategory from './views/blogs/BlogCategory';
+import SearchResults from './views/posts/SearchResults';
 
 function App() {
   // Blog categories that will be passed to various children if needed, to easily add or remove categories at a later date
@@ -22,7 +23,7 @@ function App() {
       .then(res => {
         setLoggedInUser(res.data)
       })
-      .catch(err => console.log(err))
+      .catch(err => setLoggedInUser({}))
   }, [toggleUpdate])
 
   return (
@@ -36,6 +37,7 @@ function App() {
           <Route path="/myaccount/*" element={<MyAccount categories={categories} loggedInUser={loggedInUser}/>} />
           <Route path="/blogs/:id/*" element={<BlogParent loggedInUser={loggedInUser} />} />
           <Route path="/blogs/category/:category" element={<BlogCategory />}/>
+          <Route path="/search/:searchBy/:searchText" element={<SearchResults toggleUpdate={toggleUpdate} />} />
         </Routes>
       </div>
     </BrowserRouter>
