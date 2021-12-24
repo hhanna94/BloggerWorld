@@ -13,6 +13,7 @@ const BlogParent = props => {
     const [blog, setBlog] = useState({})
     const [loaded, setLoaded] = useState(false)
 
+    // Use the blog ID passed in through the URL to set the current blog for all the child components.
     useEffect( () => {
         BlogService.getBlog(params.id)
             .then(res => {

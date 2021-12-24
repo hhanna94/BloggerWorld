@@ -18,6 +18,7 @@ const ViewPost = props => {
     const [comments, setComments] = useState([])
     const [toggleReload, setToggleReload] = useState(false)
 
+    // Upon loading the component, use the post ID passed in through the URL and gather post details, and a list of all comments made on that post. 
     useEffect( () => {
         PostService.getPost(params.id)
             .then(res => {
@@ -37,17 +38,21 @@ const ViewPost = props => {
         setCommentData({...commentData, [e.target.name]: e.target.value})
     }
 
+    // Logic for when a user submits a comment.
     const submit = e => {
         e.preventDefault();
+        // Make sure there is a user logged in when creating a comment, if there isn't redirect them to the home page.. This is also checked below.
         if (!loggedInUser.id) {
             navigate("/")
             return;
         }
+        // Otherwise, call the API to create the comment. If it succeeds, reset the comment form to default blank text to make it easier to make a new comment if the user wanted to, then trigger a reload of the useEffect to show the updated post with the new comment.
         CommentService.createComment(commentData)
             .then( () => {
                 setCommentData({...commentData, commentText: ""})
                 setToggleReload(!toggleReload)
             })
+            // If it fails, set the errors to be displayed so that the user knows what to fix.
             .catch(err => setErrors(err.response.data.messages))
     }
     
@@ -60,6 +65,7 @@ const ViewPost = props => {
                     <p>Written by: {postData.parentBlog.creator.firstName} {postData.parentBlog.creator.lastName}</p>
                     <div className="d-flex gap-3">
                         <p className="text-danger">xxx likes</p>
+                        {/* Check if the logged in user is the author of the blog/post -- if they are, then show a link to edit the post. */}
                         {loggedInUser.id == postData.parentBlog.creator.id ? <Link to="edit" className={`link-${postData.parentBlog.theme}`}>edit</Link> : ""}
                     </div>
                 </div>
@@ -68,6 +74,7 @@ const ViewPost = props => {
                     <p style={{whiteSpace: "pre-line"}}>{postData.content}</p>
                     <hr />
                     <Link to={`/blogs/${postData.parentBlog.id}`} className={`float-end link-${postData.parentBlog.theme}`}>back to blog</Link>
+                    {/* Make sure that the user is logged in. If they are, then show them the add comment form. If not, then hide it. */}
                     { loggedInUser.id? 
                     <form onSubmit={submit}>
                         <h5>Add a Comment</h5>
@@ -80,6 +87,7 @@ const ViewPost = props => {
                             <input type="submit" value="add comment" className={`btn btn-${postData.parentBlog.theme} mt-2 py-1 px-2`}/>
                     </form> : ""}
                     <h4 className="mt-3">Comments</h4>
+                    {/* Display all of the comments on the post. */}
                     {comments.map( (comment, i) => {
                         return (
                             <div key={i}>
