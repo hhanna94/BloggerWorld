@@ -13,16 +13,17 @@ import BlogCategory from './views/blogs/BlogCategory';
 import SearchResults from './views/posts/SearchResults';
 
 function App() {
-  // Blog categories that will be passed to various children if needed, to easily add or remove categories at a later date
+  // Blog categories that will be passed to various children if needed, to easily add or remove categories at a later date without having to change it in a bunch of places
   const categories = ["food", "fashion", "travel", "lifestyle", "fitness"]
+
+  // useStates to set my logged in user upon login/logout and run the useEffect again as needed with an update toggle
   const [loggedInUser, setLoggedInUser] = useState({})
   const [toggleUpdate, setToggleUpdate] = useState(false)
 
+  // useEffect to set logged in user useState whether or not the API call failed. If it succeeds, set it as the result of the API call, otherwise set it as an empty object.
   useEffect( () => {
     UserService.getLoggedInUser()
-      .then(res => {
-        setLoggedInUser(res.data)
-      })
+      .then(res => setLoggedInUser(res.data))
       .catch(err => setLoggedInUser({}))
   }, [toggleUpdate])
 

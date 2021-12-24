@@ -4,8 +4,8 @@ import CommentService from '../../services/CommentService';
 import PostService from '../../services/PostService';
 
 const ViewPost = props => {
-    const navigate = useNavigate();
     const {loggedInUser} = props
+    const navigate = useNavigate();
     const params = useParams();
     const [postData, setPostData] = useState({})
     const [loaded, setLoaded] = useState(false)
