@@ -30,6 +30,7 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
+	// If the user is a logged in user, find and return that user's details.
 	@GetMapping("/me")
 	@PreAuthorize("hasRole('USER')")
 	public ResponseEntity<Object> getLoggedInUser(@CurrentUser UserPrincipal currentUser) {
@@ -37,6 +38,7 @@ public class UserController {
 		return ResponseEntity.ok(user);
 	}
 	
+	// If the request is deemed invalid (does not meet all back-end validations created in the User model), return a list of errors so that the user knows what to fix. If the request is valid, then save the user to the database and return the saved user.
 	@PostMapping("/register")
 	public ResponseEntity<Object> registerUser(@Valid @RequestBody User newUser, BindingResult result) {
 		userService.register(newUser, result);
@@ -47,6 +49,7 @@ public class UserController {
 		return ResponseEntity.ok(newUser);
 	}
 	
+	// If the request is deemed invalid (does not meet all back-end validations created in the User model), return a list of errors so that the user knows what to fix. If the request is valid, then create and return a JWT for the user, which will essentially log them in.
 	@PostMapping("/login")
 	public ResponseEntity<Object> loginUser(@Valid @RequestBody LoginUser newLogin, BindingResult result) {
 		userService.validateLogin(newLogin, result);

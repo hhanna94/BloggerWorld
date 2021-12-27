@@ -19,6 +19,7 @@ import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
 
 @Component
+// This class is used to generate a JWT upon successful login and also to validate the JWT that is sent in all API requests along with the AuthenticationFilter.
 public class JwtTokenProvider {
 	private static final Logger logger = LoggerFactory.getLogger(JwtTokenProvider.class);
 

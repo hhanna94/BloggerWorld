@@ -13,10 +13,12 @@ public class CommentService {
 	@Autowired
 	private CommentRepo commentRepo;
 	
+	// Creates a comment
 	public Comment saveComment(Comment comment) {
 		return commentRepo.save(comment);
 	}
 	
+	// Returns a list of all comments that belong to a post.
 	public List<Comment> findPostComments(Long id) {
 		return commentRepo.findByPost_Id(id);
 	}

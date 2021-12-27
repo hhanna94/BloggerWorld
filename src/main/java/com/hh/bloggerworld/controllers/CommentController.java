@@ -28,6 +28,14 @@ public class CommentController {
 	@Autowired
 	private CommentService commentService;
 	
+	// Get a list of a post's comments based on the post ID.
+	@GetMapping("/post/{id}")
+	public ResponseEntity<Object> getPostComments(@PathVariable("id") Long post_id) {
+		List<Comment> postComments = commentService.findPostComments(post_id);
+		return ResponseEntity.ok(postComments);
+	}
+	
+	// If the user is a logged in user, if the request is deemed invalid (does not meet all back-end validations created in the Comment model), return a list of errors so that the user knows what to fix. If the request is valid, then save the comment to the database and return the saved comment.
 	@PreAuthorize("hasRole('USER')")
 	@PostMapping("/create")
 	public ResponseEntity<Object> createComment(@Valid @RequestBody Comment newComment, BindingResult result) {
@@ -37,11 +45,5 @@ public class CommentController {
 	    }
 		commentService.saveComment(newComment);
 		return ResponseEntity.ok(newComment);
-	}
-	
-	@GetMapping("/post/{id}")
-	public ResponseEntity<Object> getPostComments(@PathVariable("id") Long post_id) {
-		List<Comment> postComments = commentService.findPostComments(post_id);
-		return ResponseEntity.ok(postComments);
 	}
 }

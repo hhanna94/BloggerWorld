@@ -19,8 +19,9 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.hh.bloggerworld.services.UserDetailsServiceImplementation;
 
+// This class implements a filter that will read the JWT from the header of all requests, load the user details associated with the token and set that user in Spring Security's SecurityContext.
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
-
+	
     @Autowired
     private JwtTokenProvider tokenProvider;
 

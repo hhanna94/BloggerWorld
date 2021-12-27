@@ -14,6 +14,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
 
 @Component
+// This class is used to return a 401 error if the user tries to access something they are not allowed to. For example, users who are not logged in but want to try to access My Account.
 public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 	
 	private static final Logger logger = LoggerFactory.getLogger(JwtAuthenticationEntryPoint.class);
