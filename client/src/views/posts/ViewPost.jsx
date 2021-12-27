@@ -7,18 +7,23 @@ const ViewPost = props => {
     const {loggedInUser} = props
     const navigate = useNavigate();
     const params = useParams();
+
+    // useStates for the comment form to use.
     const [postData, setPostData] = useState({})
-    const [loaded, setLoaded] = useState(false)
     const [errors, setErrors] = useState([])
+    
+    // Sets the default state of the comment form to have the loggedInUser as the user who created the comment by default.
     const [commentData, setCommentData] = useState({
         commentText: "",
         post: "",
         user: loggedInUser
     })
     const [comments, setComments] = useState([])
+    
+    const [loaded, setLoaded] = useState(false)
     const [toggleReload, setToggleReload] = useState(false)
 
-    // Upon loading the component, use the post ID passed in through the URL and gather post details, and a list of all comments made on that post. 
+    // Upon loading the component, use the post ID passed in through the URL and gather post details, and a list of all comments made on that post. This will also set the default post to be the current post.
     useEffect( () => {
         PostService.getPost(params.id)
             .then(res => {

@@ -7,6 +7,7 @@ const CreatePost = props => {
     const navigate = useNavigate();
     const {blog, loggedInUser} = props
     const [errors, setErrors] = useState([])
+    
     // By default, set the post information to be empty strings except for the parent Blog, which was passed down from the BlogParent.
     const postInfo = {title: "", content: "", parentBlog: blog}
 

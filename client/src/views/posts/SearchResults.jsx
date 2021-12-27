@@ -8,6 +8,7 @@ const SearchResults = props => {
     const [loaded, setLoaded] = useState(false)
     const [posts, setPosts] = useState([])
 
+    // useEffect to call on the API based on what search criteria was selected, and what was searched for. This is not DRY at all and I will work on refactoring it at a later date.
     useEffect(() => {
         setLoaded(false)
         if (searchBy === "postTitle") {
@@ -40,7 +41,8 @@ const SearchResults = props => {
     return (
         <div className='sub-container overflow-auto'>
             <h3 className="text-center">Post Results</h3>
-            {!loaded ? <p>No blogs found!</p> : 
+            {/* If loaded is false, then that means there were no results found for the search. */}
+            {!loaded ? <p>No posts found that match your search criteria!</p> : 
             
             <div className="mt-3">
                 {posts.map( (post, i) => {
