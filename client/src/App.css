@@ -32,7 +32,9 @@ a:hover {
 }
 
 
-
+/* =============== */
+/* = CONTAINERS == */
+/* =============== */
 
 #main-container {
   margin-top: 1.5em;
@@ -57,7 +59,7 @@ a:hover {
   text-overflow: ellipsis;
 }
 
-
+/* Makes the search icon image appear to be a button so users know to click it to initiate the search. */
 #search-icon:hover {
   cursor:pointer;
 }
@@ -82,7 +84,6 @@ a:hover {
 .text-default {
   color: #343A40;
   font-family: 'Nunito', sans-serif;
-  /* font-family: 'Quicksand', sans-serif; */
 }
 
 .btn-default {
