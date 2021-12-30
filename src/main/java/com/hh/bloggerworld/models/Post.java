@@ -1,5 +1,6 @@
 package com.hh.bloggerworld.models;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -11,6 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
@@ -70,6 +73,14 @@ public class Post {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private List<Comment> comments;
     
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+        	name = "liked_posts",
+        	joinColumns = @JoinColumn(name = "post_id"),
+        	inverseJoinColumns = @JoinColumn(name = "user_id")
+        )
+    private List<User> usersWhoLiked = new ArrayList<User>();
+    
     // ================================
     // CONSTRUCTOR
     // ================================
@@ -126,6 +137,12 @@ public class Post {
 //	public void setUsers(List<User> users) {
 //		this.users = users;
 //	}
+	public List<User> getUsersWhoLiked() {
+		return usersWhoLiked;
+	}
+	public void setUsersWhoLiked(List<User> usersWhoLiked) {
+		this.usersWhoLiked = usersWhoLiked;
+	}
 	
 	
    

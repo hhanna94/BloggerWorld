@@ -14,7 +14,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.OrderColumn;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -99,6 +98,15 @@ public class User{
     @JsonIgnore
     private List<Blog> favoritedBlogs = new ArrayList<Blog>();
     
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+    	name = "liked_posts",
+    	joinColumns = @JoinColumn(name = "user_id"),
+    	inverseJoinColumns = @JoinColumn(name = "post_id")
+    )
+    @JsonIgnore
+    private List<Post> favoritedPosts = new ArrayList<Post>();
+    
     
     
     // ================================
@@ -179,6 +187,12 @@ public class User{
 	}
 	public void setFavoritedBlogs(List<Blog> favoritedBlogs) {
 		this.favoritedBlogs = favoritedBlogs;
+	}
+	public List<Post> getFavoritedPosts() {
+		return favoritedPosts;
+	}
+	public void setFavoritedPosts(List<Post> favoritedPosts) {
+		this.favoritedPosts = favoritedPosts;
 	}
 	
 	

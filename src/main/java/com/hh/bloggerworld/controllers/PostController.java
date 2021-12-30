@@ -77,6 +77,13 @@ public class PostController {
 		return ResponseEntity.ok(posts);
 	}
 	
+	// Get and return a list of posts that a user has liked.
+	@GetMapping("favorites/{user_id}")
+	public ResponseEntity<Object> getUserLikes(@PathVariable("user_id") Long user_id) {
+		List<Post> posts = postService.findLikedPosts(user_id);
+		return ResponseEntity.ok(posts);
+	}
+	
 	// ================================
     // POST/PUT REQUESTS
     // ================================
@@ -98,6 +105,14 @@ public class PostController {
 	@PutMapping("/{id}")
 	public ResponseEntity<Object> editPost(@Valid @RequestBody Post post, BindingResult result) {
 		return this.createPost(post, result);
+	}
+	
+	// If the user is a logged in user, like the post
+	@PreAuthorize("hasRole('USER')")
+	@PutMapping("/{post_id}/user/{user_id}")
+	public ResponseEntity<Object> likePost(@PathVariable("post_id") Long post_id, @PathVariable("user_id") Long user_id) {
+		Post post = postService.likePost(post_id, user_id);
+		return ResponseEntity.ok(post);
 	}
 	
 	// ================================

@@ -1,21 +1,26 @@
 import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import BlogService from '../../services/BlogService';
+import PostService from '../../services/PostService';
 
 const AccountDetails = props => {
     // The logged in user passed down via props from MyAccount.
     const {loggedInUser} = props
 
-    // Upon loading the component, get a list of the blogs that the logged in user has favorited which will be displayed in the Favorites section.
+    // Upon loading the component, get a list of the blogs that the logged in user has favorited which will be displayed in the Favorites section. Also get a list of all the posts that a user has liked to be displayed.
     const [favoriteBlogs, setFavoriteBlogs] = useState([])
+    const [likedPosts, setLikedPosts] = useState([])
     useEffect( () => {
         BlogService.getUserFavorites(loggedInUser.id)
             .then(res => setFavoriteBlogs(res.data))
             .catch(err => console.log(err))
+        PostService.getLikedPosts(loggedInUser.id)
+            .then(res => setLikedPosts(res.data))
+            .catch(err => console.log(err))
     }, [])
 
     return (
-        <div className=''>
+        <div>
             <h4>Account Details</h4>
             <div className='d-flex'>
                 <p className='fw-bold col-1'>Name: </p>
@@ -39,12 +44,14 @@ const AccountDetails = props => {
                         })}
                     </ul>
                 </div>
-                <div className='w-50 text-danger'>
+                <div className='w-50'>
                     <h5>Liked Posts</h5>
                     <ul>
-                        <li><Link to="/">Placeholder</Link></li>
-                        <li><Link to="/">Placeholder</Link></li>
-                        <li><Link to="/">Placeholder</Link></li>
+                        {likedPosts.map( (post, i) => {
+                            return (
+                                <li key={i}><Link to={`/blogs/${post.parentBlog.id}/posts/${post.id}`}>{post.title}</Link></li>
+                            )
+                        })}
                     </ul>
                 </div>
             </div>

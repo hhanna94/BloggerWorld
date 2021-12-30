@@ -27,9 +27,13 @@ const ViewPost = props => {
     useEffect( () => {
         PostService.getPost(params.id)
             .then(res => {
-                setPostData(res.data)
-                setCommentData({...commentData, post: res.data})
+                let post = res.data
+                setPostData(post)
+                setCommentData({...commentData, post: post})
                 setLoaded(true);
+                if (loggedInUser.id && post.usersWhoLiked.length > 0 && post.usersWhoLiked.some(user => user.id == loggedInUser.id)) {
+                    setHidden(true);
+                }
             })
             .catch(err => console.log(err))
         CommentService.getPostComments(params.id)
@@ -60,6 +64,17 @@ const ViewPost = props => {
             // If it fails, set the errors to be displayed so that the user knows what to fix.
             .catch(err => setErrors(err.response.data.messages))
     }
+
+    // Call on the API to add a post to a user's favorites.
+    const [hidden, setHidden] = useState(false)
+    const likePost = () => {
+        PostService.likePost(postData.id, loggedInUser.id)
+            .then(res => {
+                setHidden(true)
+                setToggleReload(!toggleReload)
+            })
+            .catch(err => console.log(err))
+    }
     
     return (
         <div>
@@ -69,7 +84,7 @@ const ViewPost = props => {
                 <div className='d-flex justify-content-between mb-0'>
                     <p>Written by: {postData.parentBlog.creator.firstName} {postData.parentBlog.creator.lastName}</p>
                     <div className="d-flex gap-3">
-                        <p className="text-danger">xxx likes</p>
+                        <p>{postData.usersWhoLiked.length} likes</p>
                         {/* Check if the logged in user is the author of the blog/post -- if they are, then show a link to edit the post. */}
                         {loggedInUser.id == postData.parentBlog.creator.id ? <Link to="edit" className={`link-${postData.parentBlog.theme}`}>edit</Link> : ""}
                     </div>
@@ -78,7 +93,10 @@ const ViewPost = props => {
                 <div>
                     <p style={{whiteSpace: "pre-line"}}>{postData.content}</p>
                     <hr />
-                    <Link to={`/blogs/${postData.parentBlog.id}`} className={`float-end link-${postData.parentBlog.theme}`}>back to blog</Link>
+                    <div className='d-flex justify-content-between align-items-center mb-3'>
+                        {loggedInUser.id && !hidden ? <button onClick={likePost} className={`btn btn-${postData.parentBlog.theme} py-0 px-2`}>like post</button> : <p></p>}
+                        <Link to={`/blogs/${postData.parentBlog.id}`} className={`link-${postData.parentBlog.theme}`}>back to blog</Link>
+                    </div>
                     {/* Make sure that the user is logged in. If they are, then show them the add comment form. If not, then hide it. */}
                     { loggedInUser.id? 
                     <form onSubmit={submit}>

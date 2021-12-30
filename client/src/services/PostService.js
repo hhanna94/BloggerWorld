@@ -34,15 +34,26 @@ class PostService {
         return axios.get(API_URL+"search/content/"+content)
     }
 
-    // Create a post
+    // Get posts a user has liked.
+    getLikedPosts(user_id) {
+        return axios.get(API_URL+"favorites/"+user_id)
+    }
+
+    // Create a post.
     createPost(post) {
         return axios.post(API_URL+"create", post)
     }
 
-    // Edit a post
+    // Edit a post.
     editPost(post) {
         return axios.put(API_URL+post.id, post)
     }
+
+    // Like a post.
+    likePost(post_id, user_id) {
+        return axios.put(API_URL+post_id+"/user/"+user_id)
+    }
+
 
     // Delete a post
     deletePost(post_id) {
