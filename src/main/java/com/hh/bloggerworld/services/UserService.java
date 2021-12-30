@@ -116,4 +116,5 @@ public class UserService {
 		String jwt = tokenProvider.generateToken(authentication);
 		return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
 	}
+	
 }

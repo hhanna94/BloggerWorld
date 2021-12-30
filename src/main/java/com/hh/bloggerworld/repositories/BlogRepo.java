@@ -7,6 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import com.hh.bloggerworld.models.Blog;
+import com.hh.bloggerworld.models.User;
 
 @Repository
 // These methods query the database for blog related requests.
@@ -22,5 +23,7 @@ public interface BlogRepo extends CrudRepository<Blog, Long>{
 	
 	// Used to return a list of all blogs that belong to a certain category.
 	List<Blog> findByCategory(String category);
+	
+	List<Blog> findByUsersWhoFavoritedId(Long id);
 	
 }

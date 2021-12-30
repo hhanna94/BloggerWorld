@@ -16,4 +16,5 @@ public interface UserRepo extends CrudRepository<User, Long>{
 	
 	// Used to return a user by their ID.
 	Optional<User> findById(Long id);
+	
 }

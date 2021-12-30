@@ -1,5 +1,6 @@
 package com.hh.bloggerworld.models;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -11,14 +12,19 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderColumn;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name="blogs")
@@ -66,6 +72,14 @@ public class Blog {
     
     @OneToMany(mappedBy="parentBlog", fetch = FetchType.LAZY, cascade=CascadeType.ALL)
     private List<Post> posts;
+    
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+    	name = "favorite_blogs",
+    	joinColumns = @JoinColumn(name = "blog_id"),
+    	inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private List<User> usersWhoFavorited = new ArrayList<User>();
     
     // ================================
     // CONSTRUCTOR
@@ -128,6 +142,12 @@ public class Blog {
 	}
 	public void setPosts(List<Post> posts) {
 		this.posts = posts;
+	}
+	public List<User> getUsersWhoFavorited() {
+		return usersWhoFavorited;
+	}
+	public void setUsersWhoFavorited(List<User> usersWhoFavorited) {
+		this.usersWhoFavorited = usersWhoFavorited;
 	}
 
     

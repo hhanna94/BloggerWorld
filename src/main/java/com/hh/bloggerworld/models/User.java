@@ -1,9 +1,9 @@
 package com.hh.bloggerworld.models;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderColumn;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -82,12 +83,22 @@ public class User{
     private List<Role> roles;
     
     @OneToMany(mappedBy="creator", fetch = FetchType.LAZY)
-    private List<Blog> blogs;
+    private List<Blog> blogs = new ArrayList<Blog>();
     
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy="post")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private List<Comment> comments;
+    
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+    	name = "favorite_blogs",
+    	joinColumns = @JoinColumn(name = "user_id"),
+    	inverseJoinColumns = @JoinColumn(name = "blog_id")
+    )
+    @JsonIgnore
+    private List<Blog> favoritedBlogs = new ArrayList<Blog>();
+    
     
     
     // ================================
@@ -163,6 +174,12 @@ public class User{
 //	public void setBlogs(List<Blog> blogs) {
 //		this.blogs = blogs;
 //	}
+	public List<Blog> getFavoritedBlogs() {
+		return favoritedBlogs;
+	}
+	public void setFavoritedBlogs(List<Blog> favoritedBlogs) {
+		this.favoritedBlogs = favoritedBlogs;
+	}
 	
 	
 }

@@ -64,6 +64,13 @@ public class BlogController {
 		return ResponseEntity.ok(blogs);
 	}
 	
+	// Get and return a list of all blogs that a user favorited.
+	@GetMapping("/favorites/{user_id}")
+	public ResponseEntity<Object> getUserFavorites(@PathVariable("user_id") Long user_id) {
+		List<Blog> blogs = blogService.getUserFavorites(user_id);
+		return ResponseEntity.ok(blogs);
+	}
+	
 	// ================================
     // POST/PUT REQUESTS
     // ================================
@@ -87,6 +94,13 @@ public class BlogController {
 		return this.createBlog(blog, result);
 	}
 	
+	// If the user is a logged in user, favorite the blog
+	@PreAuthorize("hasRole('USER')")
+	@PutMapping("/{blog_id}/user/{user_id}")
+	public ResponseEntity<Object> favoriteBlog(@PathVariable("blog_id") Long blog_id, @PathVariable("user_id") Long user_id) {
+		Blog blog = blogService.favoriteBlog(blog_id, user_id);
+		return ResponseEntity.ok(blog);
+	}
 	
 	// ================================
     // DELETE REQUESTS

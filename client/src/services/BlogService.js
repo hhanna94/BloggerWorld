@@ -24,6 +24,11 @@ class BlogService {
         return axios.get(API_URL+"category/"+category)
     }
 
+    // Get a user's favorite blogs.
+    getUserFavorites(user_id) {
+        return axios.get(API_URL+"favorites/"+user_id)
+    }
+
     // Create a blog.
     createBlog(blog) {
         return axios.post(API_URL+"create", blog)
@@ -32,6 +37,11 @@ class BlogService {
     // Edit a blog.
     editBlog(blog) {
         return axios.put(API_URL+blog.id, blog)
+    }
+
+    // Favorite a blog.
+    favoriteBlog(blog_id, user_id) {
+        return axios.put(API_URL+blog_id+"/user/"+user_id)
     }
 
     // Delete a blog.

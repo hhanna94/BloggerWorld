@@ -1,19 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import BlogService from '../../services/BlogService';
 import PostService from '../../services/PostService';
 
 
 const BlogData = props => {
     const {blog, loggedInUser} = props;
     const [blogPosts, setBlogPosts] = useState([])
+    const [hidden, setHidden] = useState(false)
 
-    // On component load, call on the API to get all posts based on the blog's ID. This is then used to fill out the data below.
+    // On component load, call on the API to get all posts based on the blog's ID. This is then used to fill out the data below. Also check to see if the user has already favorited the blog -- if so, then hide the "favorite blog" button.
     useEffect( () => {
         PostService.getBlogPosts(blog.id)
             .then(res => setBlogPosts(res.data))
             .catch(err => console.log(err))
+        if (blog.usersWhoFavorited.some(user => user.id == loggedInUser.id)) {
+            setHidden(true)
+        }
     }, [])
 
+    // Call on the API to add a blog to a user's favorites.
+    const favoriteBlog = () => {
+        BlogService.favoriteBlog(blog.id, loggedInUser.id)
+            .then(res => setHidden(true))
+            .catch(err => console.log(err))
+    }
 
     return (
         <div className={`text-${blog.theme}`}>
@@ -22,10 +33,13 @@ const BlogData = props => {
             <p style={{whiteSpace: "pre-line"}}>{blog.description}</p>
 
             {/* Check if the logged in user owns the blog. If they do, then show the New Post button. Otherwise, show nothing. */}
-            { loggedInUser.id == blog.creator.id ? <Link to={`posts/new`} className={`btn btn-${blog.theme} mb-3`}>Add Post</Link> : ""}
+            { loggedInUser.id == blog.creator.id ? 
+                <Link to={`posts/new`} className={`btn btn-${blog.theme} mb-3`}>Add Post</Link> : ""
+            }
+            {loggedInUser.id && loggedInUser.id != blog.creator.id && !hidden ? <button onClick={favoriteBlog} className={`btn btn-${blog.theme} mb-3`}>Add To Favorites</button> : ""}
 
             {/* Check if the user hasn't made any posts, add the below line if there are no posts. Otherwise, show nothing. */}
-            {blogPosts.length == 0 ? <p><em>{blog.creator.firstName} hasn't made any posts yet!</em></p> : ""}
+            {blogPosts.length == 0 ? <p className='mt-5'><em>{blog.creator.firstName} hasn't made any posts yet!</em></p> : ""}
 
             {/* Display all the blog's posts. */}
             {blogPosts.map( (post, i) => {
