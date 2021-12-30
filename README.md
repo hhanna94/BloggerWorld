@@ -44,7 +44,7 @@ ___
 * Logged In User Features  
     * View account details, blogs the user has created and blogs/posts that the user has liked
 
-    <img src="./screenshots/MyAccount.PNG" alt="View Task" width="300">
+    <img src="./screenshots/MyAccount2.PNG" alt="View Task" width="300">
 
     * Create a blog
 
