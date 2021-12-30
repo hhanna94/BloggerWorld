@@ -32,7 +32,7 @@ const Login = props => {
 
 
     return (
-        <div className='container w-25 sub-container d-flex flex-column justify-content-between h-50'>
+        <div className='container w-25 sub-container d-flex flex-column justify-content-between h-50' style={{minHeight: "320px"}}>
             <h3 className='text-center fw-bold'>Login</h3>
             {/* Map the errors that may or may not have been generated in the login method. */}
             {errors.map( (error, i) => {

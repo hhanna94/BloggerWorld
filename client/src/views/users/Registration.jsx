@@ -30,7 +30,7 @@ const Registration = () => {
     }
 
     return (
-        <div className='container w-25 sub-container d-flex flex-column justify-content-between h-75'>
+        <div className='container w-25 sub-container d-flex flex-column justify-content-between h-75' style={{minHeight: "450px"}}>
             <h3 className='text-center fw-bold'>Registration</h3>
             {/* If there are errors in the registration form, add an overflow div for the errors to be displayed. This is to prevent the container from getting so large that it extends past the gray. */}
             {errors.length>0 ? <div className="overflow-auto mb-3">

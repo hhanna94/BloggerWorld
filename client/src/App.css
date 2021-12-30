@@ -55,6 +55,7 @@ a:hover {
 .mini-container {
   border: 2px solid lightgrey;
   padding: 1em 1em;
+  min-height: 125px;
   height: 14vh;
   text-overflow: ellipsis;
 }

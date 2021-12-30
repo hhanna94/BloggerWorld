@@ -52,8 +52,8 @@ const BlogData = props => {
                                 <p className="text-danger">xxx likes</p>
                             </div>
                         </div>
-                        {/* If the post's content is longer than 400 characters, cut it off and add a ... to show that there is more to read. This is to make sure all post divs are the same height without overflowing. */}
-                        <p className="ms-3">{post.content.slice(0, 400)}{post.content.length > 400? "..." : ""}</p>
+                        {/* If the post's content is longer than 500 characters, cut it off and add a ... to show that there is more to read. This is to make sure all post divs are the same height without overflowing. */}
+                        <p className="ms-3">{post.content.slice(0, 500)}{post.content.length > 500? "..." : ""}</p>
                     </div>
                 )
             })}
