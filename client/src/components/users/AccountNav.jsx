@@ -4,7 +4,7 @@ import BlogService from '../../services/BlogService';
 
 const AccountNav = props => {
     // User ID passed down from MyAccount that is used in the useEffect below.
-    const {user_id} = props
+    const {user_id, toggleUpdate} = props
 
     // A list of tabs that display above the "My Blogs" section on the side nav of My Account. The URL is relative.
     const primaryTabs = [
@@ -32,7 +32,7 @@ const AccountNav = props => {
             setBlogTabs(res.data)
         })
         .catch(err => console.log(err))
-    }, [])
+    }, [toggleUpdate])
 
     return (
         <div className='d-flex flex-column gap-3'>

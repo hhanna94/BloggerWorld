@@ -35,7 +35,7 @@ function App() {
           <Route exact path="/" element={<Home />}/>
           <Route path="/login" element={<Login toggleUpdate={toggleUpdate} setToggleUpdate={setToggleUpdate}/> } />
           <Route path="/register" element={<Registration />} />
-          <Route path="/myaccount/*" element={<MyAccount categories={categories} loggedInUser={loggedInUser}/>} />
+          <Route path="/myaccount/*" element={<MyAccount categories={categories} loggedInUser={loggedInUser} toggleUpdate={toggleUpdate} setToggleUpdate={setToggleUpdate}/>} />
           <Route path="/blogs/:id/*" element={<BlogParent loggedInUser={loggedInUser} />} />
           <Route path="/blogs/category/:category" element={<BlogCategory />}/>
           <Route path="/search/:searchBy/:searchText" element={<SearchResults toggleUpdate={toggleUpdate} />} />

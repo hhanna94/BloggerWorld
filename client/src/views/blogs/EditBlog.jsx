@@ -1,12 +1,11 @@
 import React, {useState, useEffect} from 'react';
-
 import { useParams, useNavigate } from 'react-router-dom';
 import BlogForm from '../../components/blogs/BlogForm';
 import BlogService from '../../services/BlogService';
 
 const EditBlog = props => {
     // Categories array and logged in user passed down from MyAccount, to be passed down again to the actual Blog Form. Also, toggleReload passed down from MyAccount which will be used to force the useEffect to run on the Account Nav sidebar when a blog is deleted.
-    const {categories, toggleReload, setToggleReload, loggedInUser} = props
+    const {categories, toggleUpdate, setToggleUpdate, loggedInUser} = props
 
     // Used to pull the blog ID from the URL
     const params  = useParams();
@@ -54,7 +53,8 @@ const EditBlog = props => {
         }
         BlogService.deleteBlog(blogInfo.id)
             .then( () => {
-                setToggleReload(!toggleReload)
+                // Have the App.jsx useEffect update, as well as force an update of the get user blogs useEffect on the AccountNav component to trigger.
+                setToggleUpdate(!toggleUpdate)
                 navigate("/myaccount/details")
             })
             .catch(err => console.log(err))
