@@ -43,23 +43,35 @@ ___
 
 * Logged In User Features  
     * View account details, blogs the user has created and blogs/posts that the user has liked
-    ###### Red text indicates features that have not been added, but will be added
 
     <img src="./screenshots/MyAccount.PNG" alt="View Task" width="300">
 
     * Create a blog
+
     <img src="./screenshots/CreateBlog.PNG" alt="View Task" width="300">
 
     * Edit/delete a blog
+
     <img src="./screenshots/EditBlog.PNG" alt="View Task" width="300">
 
     * Add a blog post
+
     <img src="./screenshots/CreatePost.PNG" alt="View Task" width="300">
 
     * Edit/delete a blog post
+
     <img src="./screenshots/EditPost.PNG" alt="View Task" width="300">
 
+    * Favorite a blog
+
+    <img src="./screenshots/Blog2.PNG" alt="Blog Page" width="300">
+
+    * Like a blog post
+
+    <img src="./screenshots/Post2.PNG" alt="Blog Page" width="300">
+
     * Comment on a blog post
+
     <img src="./screenshots/Comment.PNG" alt="View Task" width="300">
 
 
