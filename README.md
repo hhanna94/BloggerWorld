@@ -92,7 +92,7 @@ ___
 ## Functionality
 Upon loading the web application, the user arrives on the home page which has 3 unique, random blog posts with a preview. From there, the user is able go directly to that post to read it if they are interested in any of them. If none of them are appealing, the user could search for posts with the search feature, or view blogs by category to find something they do want to look at. If the user wants to do anything more than search or read blogs and their posts, then they will need to login.
 
-Once the user has logged in, they will be able to view their account which opens them up to creating, editing and deleting blogs. They will also be able to add, editt and delete posts for their blog, and comment on their own and other people's posts..
+Once the user has logged in, they will be able to view their account which opens them up to creating, editing and deleting blogs. They will also be able to add, edit and delete posts for their blog, and comment on their own and other people's posts. Users can favorite blogs, and like individual blog posts that they can find later in My Account.
 
 When a user creates a blog, they have four themes to choose from. Each theme has a special color scheme and font to distinguish them. This allows users to create a blog that better matches their brand. These themes affect only their blogs and blog posts.
 
@@ -104,8 +104,6 @@ ___
 As mentioned in the Background, the original idea for this project was to have customizable themes for blogs. Integrating React with Java/Spring was more time consuming than I expected, so it is only to the point of proof of concept at the moment. I plan to allow users to use a color picker to customize various elements, and be able to select from a few different fonts. Super end goal would be to make a sort of WYSIWYG editor for the user.
 
 I also plan to allow users to upload an image to the blog posts. First, I would only allow them to upload one image, however if I get to the point of the WYSIWYG editor I could allow them to add multiple images and place them wherever they wanted.
-
-I had the ability to favorite a blog and like individual posts that would be displayed in My Account, however I broke something crucial and in my panic I reverted back to my previous git version and lost those features. They will be added back in. Lesson learned...
 
 I would like to add pagination, but I need to figure out a way to DRY up the code I would need to do that since I would want it on many different views of the app.
 
